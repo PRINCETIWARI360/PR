@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<!--
+  PORTFOLIO — Prince Tiwari
+  Before publishing, swap these placeholders for your real links:
+    - Project "Code" / "Live" buttons currently point to "#" — replace with your
+      GitHub repo URLs and deployed demo URLs (search for data-todo="link").
+    - If you have a headshot, replace the monogram badge in the hero (search
+      for data-todo="photo") with an <img>.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prince Tiwari — Full-Stack Developer</title>
+<meta name="description" content="Prince Tiwari — MERN stack developer portfolio. Projects, skills, and contact.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3F1EA;
+    --paper-dim:#E7E4D9;
+    --ink:#1B2430;
+    --ink-dim:#5C6570;
+    --blue:#1E3A8A;
+    --blue-line:#1E3A8A55;
+    --blue-faint:#1E3A8A22;
+    --accent:#C4501F;
+    --ok:#2F6D4F;
+    --radius:2px;
+    --maxw:1080px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, var(--blue-faint) 39px, var(--blue-faint) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, var(--blue-faint) 39px, var(--blue-faint) 40px),
+      var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+
+  ::selection{ background:var(--blue); color:var(--paper); }
+
+  a{ color:inherit; }
+
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  h1,h2,h3{
+    font-family:'Space Grotesk', sans-serif;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+
+  :focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+
+  /* ---------- Nav ---------- */
+  header.site{
+    position:sticky; top:0; z-index:40;
+    background:rgba(243,241,234,0.88);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--blue-line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 24px;
+    max-width:var(--maxw); margin:0 auto;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:15px;
+    text-decoration:none;
+  }
+  .brand .badge{
+    width:30px; height:30px; border:1.5px solid var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    font-size:12px; font-weight:700; font-family:'JetBrains Mono',monospace;
+    background:var(--paper);
+  }
+  nav.links{ display:flex; gap:28px; }
+  nav.links a{
+    text-decoration:none; font-size:13px; font-weight:600; color:var(--ink-dim);
+    letter-spacing:0.03em; text-transform:uppercase;
+    position:relative; padding-bottom:3px;
+  }
+  nav.links a::after{
+    content:""; position:absolute; left:0; bottom:0; width:0; height:1.5px; background:var(--accent);
+    transition:width 200ms ease;
+  }
+  nav.links a:hover::after, nav.links a:focus-visible::after{ width:100%; }
+  .nav-toggle{ display:none; background:none; border:1px solid var(--ink); border-radius:var(--radius); width:36px; height:32px; cursor:pointer; }
+  .nav-toggle span{ display:block; width:16px; height:2px; background:var(--ink); margin:3px auto; }
+
+  @media (max-width: 720px){
+    nav.links{
+      position:absolute; top:100%; left:0; right:0;
+      flex-direction:column; background:var(--paper);
+      border-bottom:1px solid var(--blue-line);
+      padding:16px 24px; gap:16px;
+      display:none;
+    }
+    nav.links.open{ display:flex; }
+    .nav-toggle{ display:block; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    padding:96px 0 64px;
+    overflow:hidden;
+  }
+  .hero .wrap{ position:relative; }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.08em;
+    color:var(--blue); text-transform:uppercase; margin-bottom:18px;
+  }
+  .eyebrow::before{ content:"◆"; font-size:9px; }
+
+  .hero h1{
+    font-size:clamp(40px, 7vw, 78px);
+    line-height:0.98;
+    font-weight:700;
+    max-width:14ch;
+  }
+  .hero .role{
+    margin-top:18px;
+    font-size:clamp(16px,2.4vw,20px);
+    color:var(--ink-dim);
+    max-width:52ch;
+  }
+  .hero .role strong{ color:var(--ink); font-weight:600; }
+
+  .cta-row{ display:flex; flex-wrap:wrap; gap:12px; margin-top:32px; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:11px 20px; border-radius:var(--radius);
+    font-size:13px; font-weight:600; text-decoration:none;
+    border:1.5px solid var(--ink); cursor:pointer;
+    font-family:'Inter',sans-serif;
+    transition:transform 150ms ease, background 150ms ease, color 150ms ease;
+  }
+  .btn.primary{ background:var(--ink); color:var(--paper); }
+  .btn.primary:hover{ background:var(--blue); border-color:var(--blue); transform:translateY(-2px); }
+  .btn.ghost{ background:transparent; color:var(--ink); }
+  .btn.ghost:hover{ background:var(--ink); color:var(--paper); transform:translateY(-2px); }
+
+  /* leader-line callouts */
+  .callouts{ position:absolute; right:24px; top:110px; width:230px; display:none; }
+  @media (min-width:960px){ .callouts{ display:block; } }
+  .callout{ position:relative; margin-bottom:46px; padding-left:26px; }
+  .callout svg{ position:absolute; left:0; top:6px; }
+  .callout .k{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--blue); letter-spacing:0.05em; }
+  .callout .v{ font-size:13px; font-weight:600; margin-top:2px; }
+
+  /* Title block, engineering-drawing style */
+  .titleblock{
+    margin-top:64px;
+    border:1.5px solid var(--ink);
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    max-width:640px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+  }
+  .titleblock div{
+    padding:10px 12px;
+    border-right:1px solid var(--blue-line);
+    border-bottom:1px solid var(--blue-line);
+  }
+  .titleblock div:nth-child(4n){ border-right:none; }
+  .titleblock .lbl{ color:var(--ink-dim); text-transform:uppercase; letter-spacing:0.06em; font-size:9px; margin-bottom:4px; display:block; }
+  .titleblock .val{ font-weight:600; color:var(--ink); }
+
+  /* draw-in animation for hero underline */
+  .draw-underline{
+    position:relative; display:inline-block;
+  }
+  .draw-underline svg{ position:absolute; left:0; bottom:-6px; width:100%; height:10px; }
+  .draw-underline path{
+    stroke:var(--accent); stroke-width:3; fill:none;
+    stroke-dasharray:400; stroke-dashoffset:400;
+    animation:draw 900ms 300ms ease forwards;
+  }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+
+  /* ---------- Section shell ---------- */
+  section{ padding:88px 0; border-top:1px solid var(--blue-line); }
+  .section-head{ margin-bottom:44px; }
+  .sheet-no{
+    font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--blue);
+    letter-spacing:0.08em; text-transform:uppercase; display:block; margin-bottom:10px;
+  }
+  .section-head h2{ font-size:clamp(26px,4vw,38px); }
+  .section-head p.sub{ color:var(--ink-dim); max-width:60ch; margin-top:10px; font-size:15px; }
+
+  .reveal{ opacity:0; transform:translateY(18px); transition:opacity 600ms ease, transform 600ms ease; }
+  .reveal.visible{ opacity:1; transform:none; }
+
+  /* ---------- About ---------- */
+  .about-grid{ display:grid; grid-template-columns:1.3fr 1fr; gap:48px; }
+  @media (max-width:760px){ .about-grid{ grid-template-columns:1fr; } }
+  .about-grid p{ font-size:16px; color:var(--ink); }
+  .status-card{
+    border:1.5px solid var(--ink); padding:20px; font-family:'JetBrains Mono',monospace; font-size:12px;
+    align-self:start;
+  }
+  .status-card .row{ display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px dashed var(--blue-line); }
+  .status-card .row:last-child{ border-bottom:none; }
+  .status-card .dot{ width:7px; height:7px; border-radius:50%; background:var(--ok); display:inline-block; margin-right:6px; }
+
+  /* ---------- Stack diagram ---------- */
+  .stack-diagram{ position:relative; display:flex; flex-direction:column; gap:0; max-width:720px; }
+  .stack-layer{
+    border:1.5px solid var(--ink); border-top:none;
+    padding:20px 24px; position:relative; background:var(--paper);
+  }
+  .stack-layer:first-child{ border-top:1.5px solid var(--ink); }
+  .stack-layer .layer-head{ display:flex; align-items:baseline; gap:12px; margin-bottom:10px; }
+  .stack-layer .layer-tag{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--blue); }
+  .stack-layer h3{ font-size:17px; }
+  .tags{ display:flex; flex-wrap:wrap; gap:8px; }
+  .tag{
+    font-family:'JetBrains Mono',monospace; font-size:11.5px;
+    border:1px solid var(--blue-line); padding:4px 9px; border-radius:999px;
+    color:var(--ink-dim); background:var(--paper-dim);
+  }
+  .flow-arrow{
+    position:absolute; right:26px; top:-13px;
+    width:24px; height:24px; border:1.5px solid var(--ink); border-radius:50%;
+    background:var(--paper); display:flex; align-items:center; justify-content:center;
+    font-size:11px; z-index:2;
+  }
+
+  /* ---------- Projects ---------- */
+  .projects{ display:flex; flex-direction:column; gap:28px; }
+  .project-card{
+    border:1.5px solid var(--ink); padding:28px;
+    display:grid; grid-template-columns:auto 1fr; gap:24px;
+    position:relative; transition:box-shadow 200ms ease, transform 200ms ease;
+  }
+  .project-card:hover{ box-shadow:6px 6px 0 var(--blue-faint); transform:translate(-2px,-2px); }
+  @media (max-width:720px){ .project-card{ grid-template-columns:1fr; } }
+  .project-sheet{
+    font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--ink-dim);
+    writing-mode:vertical-rl; text-orientation:mixed; letter-spacing:0.08em;
+  }
+  @media (max-width:720px){ .project-sheet{ writing-mode:horizontal-tb; } }
+  .project-body h3{ font-size:21px; margin-bottom:4px; }
+  .project-body .tags{ margin:12px 0 16px; }
+  .project-body ul{ margin:0 0 18px; padding-left:18px; color:var(--ink); font-size:14.5px; }
+  .project-body li{ margin-bottom:6px; }
+  .project-links{ display:flex; gap:10px; }
+  .project-links a{
+    font-family:'JetBrains Mono',monospace; font-size:12px; text-decoration:none;
+    border-bottom:1px solid var(--ink); padding-bottom:2px; color:var(--ink);
+  }
+  .project-links a:hover{ color:var(--accent); border-color:var(--accent); }
+
+  /* ---------- Education timeline ---------- */
+  .timeline{ position:relative; padding-left:28px; }
+  .timeline::before{ content:""; position:absolute; left:6px; top:6px; bottom:6px; width:1.5px; background:var(--blue-line); }
+  .t-item{ position:relative; padding-bottom:36px; }
+  .t-item:last-child{ padding-bottom:0; }
+  .t-item::before{
+    content:""; position:absolute; left:-28px; top:4px; width:11px; height:11px;
+    border:1.5px solid var(--blue); background:var(--paper); border-radius:50%;
+  }
+  .t-item .range{ font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--blue); text-transform:uppercase; letter-spacing:0.05em; }
+  .t-item h3{ font-size:17px; margin:5px 0 3px; }
+  .t-item .school{ color:var(--ink-dim); font-size:14px; font-style:italic; }
+
+  /* ---------- Contact / footer titleblock ---------- */
+  footer{ border-top:1.5px solid var(--ink); padding:64px 0 40px; }
+  .contact-grid{ display:grid; grid-template-columns:1.2fr 1fr; gap:40px; }
+  @media (max-width:720px){ .contact-grid{ grid-template-columns:1fr; } }
+  footer h2{ font-size:clamp(28px,5vw,44px); max-width:12ch; }
+  .contact-list{ display:flex; flex-direction:column; gap:14px; margin-top:24px; }
+  .contact-list a{
+    display:flex; align-items:center; gap:12px;
+    text-decoration:none; font-size:15px; font-weight:600;
+    padding-bottom:8px; border-bottom:1px solid var(--blue-line);
+    transition:padding-left 150ms ease, color 150ms ease;
+  }
+  .contact-list a:hover{ padding-left:8px; color:var(--blue); }
+  .contact-list .k{ font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--ink-dim); text-transform:uppercase; width:64px; flex-shrink:0; }
+  .fine{ margin-top:40px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="nav">
+    <a class="brand" href="#top">
+      <span class="badge">PT</span> PRINCE TIWARI
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#stack">Stack</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero" style="border-top:none;">
+    <div class="wrap">
+      <span class="eyebrow">Available for full-stack roles</span>
+      <h1>
+        Prince Tiwari builds
+        <span class="draw-underline">full-stack
+          <svg viewBox="0 0 200 10" preserveAspectRatio="none"><path d="M2,6 C60,2 140,9 198,4"/></svg>
+        </span>
+        apps, end to end.
+      </h1>
+      <p class="role">
+        MCA graduate specializing in the <strong>MERN stack</strong> — React interfaces,
+        Node/Express APIs, and MongoDB/SQL data layers, built with an eye for
+        performance and clean architecture.
+      </p>
+      <div class="cta-row">
+        <a class="btn primary" href="#projects">View projects</a>
+        <a class="btn ghost" href="mailto:tiwariprince340@gmail.com">Get in touch</a>
+      </div>
+
+      <div class="titleblock">
+        <div><span class="lbl">Name</span><span class="val">Prince Tiwari</span></div>
+        <div><span class="lbl">Role</span><span class="val">Full-Stack Dev</span></div>
+        <div><span class="lbl">Location</span><span class="val">Noida, IN</span></div>
+        <div><span class="lbl">Status</span><span class="val">Fresher</span></div>
+        <div><span class="lbl">Stack</span><span class="val">MERN</span></div>
+        <div><span class="lbl">Sheet</span><span class="val">1 / 1</span></div>
+        <div><span class="lbl">Rev.</span><span class="val">2026</span></div>
+        <div><span class="lbl">Scale</span><span class="val">1:1</span></div>
+      </div>
+    </div>
+
+    <div class="callouts" aria-hidden="true">
+      <div class="callout">
+        <svg width="20" height="30"><path d="M0,4 H10 V26" stroke="#1E3A8A" stroke-width="1.5" fill="none"/></svg>
+        <div class="k">01 · Frontend</div>
+        <div class="v">React.js, responsive UI</div>
+      </div>
+      <div class="callout">
+        <svg width="20" height="30"><path d="M0,4 H10 V26" stroke="#1E3A8A" stroke-width="1.5" fill="none"/></svg>
+        <div class="k">02 · Backend</div>
+        <div class="v">Node.js, REST APIs</div>
+      </div>
+      <div class="callout">
+        <svg width="20" height="30"><path d="M0,4 H10 V26" stroke="#1E3A8A" stroke-width="1.5" fill="none"/></svg>
+        <div class="k">03 · Data</div>
+        <div class="v">MongoDB, MySQL</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="sheet-no">§ 01 — About</span>
+        <h2>Grounded in fundamentals,<br>shipped through projects.</h2>
+      </div>
+      <div class="about-grid reveal">
+        <p>
+          I'm a recent MCA graduate with a solid foundation in Java development and
+          full-stack web technologies. Through hands-on projects, I've built scalable
+          applications across the MERN stack — from learning platforms with progress
+          tracking to e-commerce storefronts with real cart and checkout logic. I'm
+          looking for a software developer role where I can apply object-oriented
+          programming, data structures, and modern web frameworks to ship things
+          people actually use.
+        </p>
+        <div class="status-card">
+          <div class="row"><span><span class="dot"></span>Availability</span><span>Open to work</span></div>
+          <div class="row"><span>Education</span><span>MCA, 2024–2026</span></div>
+          <div class="row"><span>Core languages</span><span>Java · JS · SQL</span></div>
+          <div class="row"><span>Location</span><span>Noida, UP, India</span></div>
+          <div class="row"><span>Remote</span><span>Open to remote</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section id="stack">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="sheet-no">§ 02 — Tech stack</span>
+        <h2>A request's-eye view of the stack.</h2>
+        <p class="sub">Read top to bottom: a request lands on the client, is handled by the
+        server, and resolves against the data layer — the same path every project below follows.</p>
+      </div>
+
+      <div class="stack-diagram reveal">
+        <div class="stack-layer">
+          <div class="layer-head">
+            <span class="layer-tag">01</span>
+            <h3>Client layer</h3>
+          </div>
+          <div class="tags">
+            <span class="tag">React.js</span><span class="tag">JavaScript</span>
+            <span class="tag">HTML</span><span class="tag">CSS</span>
+            <span class="tag">Responsive Design</span>
+          </div>
+        </div>
+        <div class="stack-layer">
+          <span class="flow-arrow">↓</span>
+          <div class="layer-head">
+            <span class="layer-tag">02</span>
+            <h3>Server layer</h3>
+          </div>
+          <div class="tags">
+            <span class="tag">Node.js</span><span class="tag">REST APIs</span>
+            <span class="tag">Java</span><span class="tag">OOP</span>
+          </div>
+        </div>
+        <div class="stack-layer">
+          <span class="flow-arrow">↓</span>
+          <div class="layer-head">
+            <span class="layer-tag">03</span>
+            <h3>Data layer</h3>
+          </div>
+          <div class="tags">
+            <span class="tag">MongoDB</span><span class="tag">MySQL</span>
+            <span class="tag">Database Design</span><span class="tag">SQL</span>
+          </div>
+        </div>
+        <div class="stack-layer">
+          <span class="flow-arrow">↓</span>
+          <div class="layer-head">
+            <span class="layer-tag">04</span>
+            <h3>Tooling &amp; foundations</h3>
+          </div>
+          <div class="tags">
+            <span class="tag">Git</span><span class="tag">GitHub</span>
+            <span class="tag">VS Code</span><span class="tag">Eclipse</span>
+            <span class="tag">Android Studio</span><span class="tag">Data Structures</span>
+            <span class="tag">Algorithms</span><span class="tag">SDLC</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="sheet-no">§ 03 — Projects</span>
+        <h2>Three builds, three layers exercised.</h2>
+        <p class="sub">Remember to replace the placeholder "Code" / "Live" links below with your actual repo and deployment URLs.</p>
+      </div>
+
+      <div class="projects">
+
+        <article class="project-card reveal">
+          <div class="project-sheet">SHEET 01/03</div>
+          <div class="project-body">
+            <h3>Full Stack Master — Learning Platform</h3>
+            <div class="tags">
+              <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
+              <span class="tag">React.js</span><span class="tag">Node.js</span>
+            </div>
+            <ul>
+              <li>Built a comprehensive full-stack learning platform featuring tutorials on HTML, CSS, JavaScript, React, and Node.js.</li>
+              <li>Integrated animated video content alongside interactive code examples to boost engagement.</li>
+              <li>Built a responsive interface with smooth animations and transitions using modern CSS and JavaScript.</li>
+              <li>Added course navigation with progress tracking and bookmarking.</li>
+            </ul>
+            <div class="project-links">
+              <a href="#" data-todo="link">View code →</a>
+              <a href="#" data-todo="link">Live demo →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal">
+          <div class="project-sheet">SHEET 02/03</div>
+          <div class="project-body">
+            <h3>E-Commerce Platform</h3>
+            <div class="tags">
+              <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
+              <span class="tag">React.js</span><span class="tag">Node.js</span><span class="tag">SQL</span>
+            </div>
+            <ul>
+              <li>Built a pixel-perfect e-commerce storefront with a fully responsive layout.</li>
+              <li>Implemented product filtering, sorting, a shopping cart, and a wishlist using React hooks.</li>
+              <li>Designed dynamic product pages with an image gallery, size selection, and add-to-cart flow.</li>
+              <li>Optimized performance for fast load times via code splitting and lazy loading.</li>
+            </ul>
+            <div class="project-links">
+              <a href="#" data-todo="link">View code →</a>
+              <a href="#" data-todo="link">Live demo →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal">
+          <div class="project-sheet">SHEET 03/03</div>
+          <div class="project-body">
+            <h3>YouTube Clone — Video Streaming Platform</h3>
+            <div class="tags">
+              <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">React.js</span>
+            </div>
+            <ul>
+              <li>Developed a YouTube-inspired streaming platform with a modern, responsive UI.</li>
+              <li>Built a video player with controls, playlist support, and a recommended-videos section.</li>
+              <li>Implemented search and category-based video filtering.</li>
+              <li>Structured the UI around reusable React components for efficient state management.</li>
+            </ul>
+            <div class="project-links">
+              <a href="#" data-todo="link">View code →</a>
+              <a href="#" data-todo="link">Live demo →</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="sheet-no">§ 04 — Education</span>
+        <h2>Timeline.</h2>
+      </div>
+      <div class="timeline reveal">
+        <div class="t-item">
+          <span class="range">Jul 2024 — Jul 2026</span>
+          <h3>Master of Computer Applications (MCA)</h3>
+          <div class="school">Galgotias University, Greater Noida</div>
+        </div>
+        <div class="t-item">
+          <span class="range">Jan 2021 — Feb 2024</span>
+          <h3>Bachelor of Computer Application (BCA)</h3>
+          <div class="school">SDGI Ghaziabad</div>
+        </div>
+        <div class="t-item">
+          <span class="range">Completed</span>
+          <h3>Secondary Education</h3>
+          <div class="school">High School, Jamunaha</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div>
+        <h2>Let's build<br>something.</h2>
+        <p style="color:var(--ink-dim); margin-top:16px; max-width:40ch;">
+          Open to full-stack developer roles and freelance MERN work.
+          Based in Noida, open to remote.
+        </p>
+      </div>
+      <div class="contact-list">
+        <a href="mailto:tiwariprince340@gmail.com"><span class="k">Email</span> tiwariprince340@gmail.com</a>
+        <a href="tel:+916203811578"><span class="k">Phone</span> +91 62038 11578</a>
+        <a href="https://linkedin.com/in/prince-tiwari-662084233" target="_blank" rel="noreferrer"><span class="k">LinkedIn</span> in/prince-tiwari-662084233</a>
+        <a href="#top"><span class="k">Base</span> Noida, Uttar Pradesh, India</a>
+      </div>
+    </div>
+    <div class="fine">
+      <span>© <span id="year"></span> Prince Tiwari</span>
+      <span>Sheet 1/1 · Rev. 2026 · Built with HTML, CSS &amp; JS</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => {
+    const open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    links.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }));
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
