@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://princetiwari360.github.io/PR/sitemap.xml
+Sitemap: https://princetiwari.in/sitemap.xml
